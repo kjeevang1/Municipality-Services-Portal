@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Permission Request</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/nmc_header_css.css">
+ <!--Style for print-->
+ <style>
+  @media print {
+  html, body {
+    width: 100%;
+    background: white;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 13px !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+  /* Keep Bootstrap columns for print */
+  .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-right: -8px !important;
+    margin-left: -8px !important;
+  }
+  .col-md-6 {
+    width: 50% !important;
+    display: block !important;
+    float: left !important;
+    box-sizing: border-box !important;
+    padding: 4px 8px !important;
+  }
+  .col-12 {
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Avoid page breaks inside form rows */
+  .print-wrapper, .form-container, .nmc-header, form, .row, .footer, footer, section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  .btn, .toast, .no-print {
+    display: none !important;
+  }
+  .form-container {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 10px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+  .form-title, h2 {
+    font-size: 18px !important;
+    padding: 6px !important;
+  }
+  label, .form-label {
+    font-size: 13px !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+  }
+  input, textarea, select {
+    font-size: 13px !important;
+    padding: 2px 4px !important;
+    margin-bottom: 2px !important;
+  }
+  .nmc-logo-img {
+    max-width: 70px !important;
+    height: auto !important;
+  }
+  footer {
+    font-size: 12px !important;
+    padding: 6px 0 !important;
+  }
+  .print-image {
+    display: block !important;
+    max-width: 25%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+}
+  </style>
+
+  <style>
+    body {
+      background-color: #f4fbe5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .form-container {
+      max-width: 850px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border:green 2px solid;
+      border-top: 5px solid rgba(3, 91, 22, 0.879);
+      page-break-inside: avoid;
+    }
+    .form-container, form, .row {
+      page-break-inside: avoid;
+    }
+
+    .form-title {
+      max-width: 800px;
+      background-color:white;
+      color:  rgba(3, 91, 22, 0.879);
+      border-radius: 12px 12px 0px 0px;
+      padding: 15px 20px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    h2{
+      text-align: center;
+      font-weight: bold;
+      color: rgba(3, 91, 22, 0.879);
+    }
+
+    label {
+      margin-top: 10px;
+    }
+
+    .form-label::after {
+      content: " *";
+      color: red;
+    }
+        input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none !important;
+      border-color: #28a745 !important; /* Change this to any color you like (green here) */
+      box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important; /* Optional for smooth glow */
+      transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+    }
+    .btn-submit {
+      background-color:  rgba(3, 91, 22, 0.879);
+      border: none;
+      color: white;
+      font-size:18px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #04571a;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(3, 91, 22, 0.4);
+      transform: scale(1.02);    
+    }
+
+      /**To avoid specific tags printing**/
+ @media print {
+  .no-print {
+    display: none !important;
+  }
+   .print-image {
+    display: block !important;
+    max-width: 25%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+}
+
+
+  </style>
+</head>
+
+<body>
+    <div class="print-wrapper">
+    <!--Header-->
+    <section class="nmc-logo">
+            <div class="container-fluid nmc-header">
+              <div class="row align-items-center text-center justify-content-between">
+
+                <!-- Left Logo -->
+                <div class="col-3 col-sm-2 ml-3">
+                  <a href="/index.html"><img src="/images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+                </div>
+
+                <!-- Center Title -->
+                <div class="col-6 col-sm-8 nmc-title">
+                  <h2>Naidupeta Municipal Corporation</h2>
+                  <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+                </div>
+
+                <!-- Right Logo -->
+                <div class="col-3 col-sm-2 mr-3">
+                  <img src="/images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="Andhra Pradesh Government Logo">
+                </div>
+
+              </div>
+            </div>
+    </section>
+
+    <!--Citizen dashboard Header -->
+    <header class="py-2 border-bottom" style="background-color: #f9fbe7;">
+      <div class="container-fluid px-3">
+        <div class="d-flex align-items-center justify-content-between flex-wrap">
+
+          <!-- Left: Title -->
+          <a href="/Citizens/citizen_dashboard.html" style="text-decoration: none;"><h5 class="mb-0 fw-bold text-dark">Citizen Dashboard</h5></a>
+
+          <!-- Right: Profile Dropdown -->
+          <div class="dropdown text-end mt-2 mt-sm-0">
+            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="/images/user_logo.png" alt="User" width="38" height="38" class="rounded-circle me-2">
+              <strong id="ProfileName" class="d-none d-sm-inline">Username</strong>
+            </a>
+
+            <!-- Main Dropdown -->
+            <ul class="dropdown-menu dropdown-menu-end text-small shadow">
+              <li><a class="dropdown-item" href="/Citizens/citizen_dashboard.html">Citizen Home</a></li>
+              <li><a class="dropdown-item" href="citizen_profile_page.html">My Profile</a></li>
+
+              <!-- Services Submenu Trigger -->
+              <li class="dropdown-submenu position-relative">
+                <a class="dropdown-item dropdown-toggle dropstart" href="#">Services</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="complaint-form.html">Report Complaint</a></li>
+                  <li><a class="dropdown-item" href="event_permission_form.html">Event Permission</a></li>
+                  <li><a class="dropdown-item" href="Health_Camp_Registration.html">Health Camp</a></li>
+                </ul>
+              </li>
+
+              <li><a class="dropdown-item" href="citizen_track.html">Check Status</a></li>
+
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="" id="logoutLink">log out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!--Form-->
+    <div class="form-container">
+      <div class="form-title"><h2>Event Permission Request Form</h2></div>
+      <form action="/submit-event-request" id="eventPermission" method="POST" enctype="multipart/form-data">
+
+        <div class="row">
+
+          <div id="permissionIdDisplay" class="alert alert-info text-center fw-semibold" style="display:none;"></div>
+
+          <div class="col-md-6 mb-3">
+            <label for="eventName" class="form-label">Event Title</label>
+            <input type="text" class="form-control" id="eventName" name="eventName" placeholder="e.g., Independence Day Celebration" required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="organizerName" class="form-label">Organizer Name</label>
+            <input type="text" class="form-control" id="organizerName" name="organizerName"  required>
+          </div>
+
+                  <div class="col-md-6 mb-3">
+            <label for=" organizerContact" class="form-label">Contact Number</label>
+            <input type="tel" class="form-control" id=" organizerContact" name="organizerContact"   maxlength="10"  pattern="[0-9]{10}" required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="organizerEmail" class="form-label">Email ID</label>
+            <input type="email" class="form-control" id="organizerEmail" name="organizerEmail"  required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="eventDate" class="form-label">Event Date</label>
+            <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="eventTime" class="form-label">Event Timings</label>
+            <input type="text" class="form-control" id="eventTime" name="eventTime" placeholder="6:00 PM - 9:00 PM" required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="eventLocation" class="form-label">Event Location</label>
+            <input type="text" class="form-control" id="eventLocation" name="eventLocation"  required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="expectedGathering" class="form-label">Expected Number of People</label>
+            <input type="number" class="form-control" id="expectedGathering" name="expectedGathering" placeholder="" required>
+          </div>
+
+
+
+          <div class="col-12 mb-3">
+            <label for="eventDescription" class="form-label">Event Description</label>
+            <textarea class="form-control" id="eventDescription" name="eventDescription" rows="4" placeholder="Provide a brief description of the event..." required></textarea>
+          </div>
+
+          
+            <div class="col-12 mb-3">
+              <label for="specialRequests" class="mb-3" >Remarks</label>
+              <textarea class="form-control" id="specialRequests" name="specialRequests" rows="4" placeholder="Mention any additional needs or requests here..."></textarea>
+            </div>
+          
+
+          <div class="col-12 mb-3">
+            <label class="mb-3" for="uploadDoc">Upload Supporting Document</label>
+            <input type="file" class="form-control" id="uploadDoc" name="uploadDoc" accept=".pdf,.jpg,.jpeg,.png" >
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-submit px-4" id="submitBtn">Submit Request</button>
+        </div>
+
+        <!-- ✅ Print Button -->
+        <div class="text-center mt-3 no-print">
+          <button type="button" id="printBtn" class="btn btn-danger mb-4 d-none">Print Complaint</button>
+        </div>
+
+      </form>
+    </div>
+
+
+    <!-- ✅ Toast -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+      <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            Event Permission submitted successfully!
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+<!-- Modern Footer -->
+<footer class="no-print" id="main-footer" style="background: #33691E; color: white;">
+  <div class="container py-5">
+
+    <div class="row">
+
+      <!-- Column 1: Logo + Short Info -->
+      <div class="col-md-4 mb-4">
+        <div class="d-flex align-items-center mb-2">
+          <img src="/images/NMC_logo.png" alt="NMC Logo" width="40" class="me-2">
+          <h5 class="mb-0 ml-3 fw-bold">  Naidupeta Municipality</h5>
+        </div>
+        <p style="font-size: 15px;">
+          A citizen-friendly platform for local services such as complaints, permission requests, and health camp registrations.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Quick Links</h6>
+        <ul class="list-unstyled" style="font-size: 15px;">
+          <li><a href="/index.html" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="/About_page.html" class="text-white text-decoration-none">About us</a></li>
+          <li><a href="#main-footer" class="text-white text-decoration-none">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Contact Info</h6>
+        <p style="font-size: 15px; line-height: 1.7;">
+          Municipality Office,<br>
+          Naidupeta, SPSR Nellore, Andhra Pradesh<br>
+          Email: <a href="mailto:support@naidupeta.in" class="text-white">support@naidupeta.in</a><br>
+          Phone: +91-9876543210
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Divider Line -->
+    <hr style="border-color: rgba(255,255,255,0.2);">
+
+    <!-- Bottom Note -->
+    <div class="text-center" style="font-size: 15px;">
+      &copy; 2025 Naidupeta Municipality. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+
+
+  <!--Toast/ Alerts and Printing-->
+  <script>
+    document.getElementById('eventPermission').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    document.getElementById("submitBtn").disabled = true;
+    document.getElementById("submitBtn").innerText = "Submitting....";
+    const formData = new FormData(this);
+
+    try {
+      const response = await fetch('/submit-event-request', {
+        method: 'POST',
+        body: formData
+      });
+        
+      const result = await response.json();
+      if (response.ok) {
+        
+        //if (result.uploadDoc) {document.getElementById('uploadedImg').src = result.uploadDoc;}
+        // Show Bootstrap Toast
+        const toast = new bootstrap.Toast(document.getElementById('successToast'));
+        toast.show();
+        setTimeout(() => { toast.hide(); }, 3000);
+
+        //Show permisssion Id 
+        const idDiv = document.getElementById("permissionIdDisplay");
+        idDiv.style.display = "block";
+        idDiv.innerHTML = `Your Event Permission ID is : <strong>${result.EventpermissionId}</strong>`;
+
+        // Show print button
+        document.getElementById('printBtn').classList.remove('d-none');
+        
+        // Disable the submit button
+          document.getElementById("submitBtn").disabled = true;
+          document.getElementById("submitBtn").innerText = "Submitted";
+      } else {
+        alert('Error submitting Permission. Try again.');
+          document.getElementById("submitBtn").disabled = false;
+          document.getElementById("submitBtn").innerText = "Submit Request";
+      }
+
+    } catch (error) {
+      alert('Submission failed: ' + error.message);
+    }
+  });
+
+    // Print only the form section
+    document.getElementById('printBtn').addEventListener('click', function () {
+      window.print();
+    });
+
+  </script>
+
+    <!--To retrieve data -->
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+    const mobile = localStorage.getItem('citizenMobile'); // or sessionStorage
+
+
+    if (!mobile) {
+      console.warn("Mobile not found in storage");
+      return;
+    }
+
+    try {
+      const res = await fetch(`/profile/${mobile}`);
+      const data = await res.json();
+
+      if (res.ok) {
+        document.getElementById("ProfileName").innerText = data.name;
+        document.querySelector('.profile-summary').innerHTML = `
+          <div class="row">
+            <div class="col-md-4"><strong>Name:</strong> ${data.name}</div>
+            <div class="col-md-4"><strong>Ward:</strong> ${data.ward}</div>
+            <div class="col-md-4"><strong>Mobile:</strong> +91-${data.mobile}</div>
+          </div>
+        `;
+        console.log(data.name,data.ward);
+      } else {
+        document.querySelector('.profile-summary').innerText = '❌ Error loading profile';
+      }
+    } catch (err) {
+      console.error('Fetch error:', err);
+      document.querySelector('.profile-summary').innerText = '⚠️ Server error';
+    }
+  });
+  </script>
+
+    <!--Dropdown at profile-->
+    <script>
+        // Your checkAuthenticationStatus function (if it's not in a separate .js file)
+        async function checkAuthenticationStatus() {
+            try {
+                const response = await fetch('/api/check-auth-status');
+                if (!response.ok) {
+                    alert('Your session has expired or is invalid. Please log in again.');
+                    window.location.href = '/citizen_login.html';
+                }
+            } catch (error) {
+                console.error('Error checking authentication status:', error);
+                alert('An error occurred while verifying your session. Please try logging in again.');
+                window.location.href = '/citizen_login.html';
+            }
+        }
+
+        // Single DOMContentLoaded listener for all your page's initial JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Authentication Check Logic ---
+            checkAuthenticationStatus(); // Call on page load
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    checkAuthenticationStatus(); // Call when tab becomes active
+                }
+            });
+
+            // --- Logout Link Logic ---
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', async (event) => {
+                    event.preventDefault();
+
+                    try {
+                        const response = await fetch('/logout', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+
+                        if (response.ok) {
+                            console.log('Logout successful!');
+                            window.location.href = '/citizen_login.html';
+                        } else {
+                            const errorData = await response.json();
+                            console.error('Logout failed:', errorData.message || 'Server error');
+                            alert('Logout failed: ' + (errorData.message || 'Please try again.'));
+                        }
+                    } catch (error) {
+                        console.error('Network error during logout:', error);
+                        alert('An error occurred during logout. Please check your internet connection.');
+                    }
+                });
+            }
+
+            // --- YOUR NEW DROPDOWN SUBMENU LOGIC GOES HERE ---
+            document.querySelectorAll(".dropdown-submenu .dropdown-toggle").forEach(function (element) {
+                element.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    let submenu = this.nextElementSibling;
+                    if (submenu) {
+                        submenu.classList.toggle("show");
+                    }
+
+                    // Close other open submenus
+                    document.querySelectorAll(".dropdown-submenu .dropdown-menu").forEach(function (el) {
+                        if (el !== submenu) el.classList.remove("show");
+                    });
+                });
+            });
+
+            // Add any other DOMContentLoaded related JavaScript here
+        });
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

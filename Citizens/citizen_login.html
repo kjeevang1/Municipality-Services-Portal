@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Citizen Login - NMC</title>
+  <link rel="stylesheet" href="/nmc_header_css.css">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      background-color: #f0fff5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+
+    .nmc-citizen-login {
+      max-width: 450px;
+      margin: 80px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-top: 6px solid rgba(3, 91, 22, 0.879);
+    }
+
+    .nmc-title-login {
+      color: rgba(3, 91, 22, 0.879);
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .btn-nmc {
+      background-color: rgba(3, 91, 22, 0.879);
+      color: white;
+      font-weight: 500;
+      padding: 10px 30px;
+      width: 100%;
+      transition: all 0.3s ease;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .btn-nmc:hover {
+      background-color: #04571a;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(3, 91, 22, 0.4);
+      transform: scale(1.02);
+    }
+
+
+    .form-label {
+      font-weight: 500;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 15px;
+    }
+
+    .register-link a {
+      color: rgba(3, 91, 22, 0.879);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .show-password {
+      margin-top: -10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!--Header-->
+      <section class="nmc-logo">
+          <div class="container-fluid nmc-header">
+            <div class="row align-items-center text-center justify-content-between">
+
+              <!-- Left Logo -->
+              <div class="col-3 col-sm-2 ml-3">
+                <a href="/index.html"><img src="/images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+              </div>
+
+              <!-- Center Title -->
+              <div class="col-6 col-sm-8 nmc-title">
+                <h2>Naidupeta Municipal Corporation</h2>
+                <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+              </div>
+
+              <!-- Right Logo -->
+              <div class="col-3 col-sm-2 mr-3">
+                <img src="/images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="AP Govt Logo">
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+
+<!--Login Form-->
+  <div class="nmc-citizen-login">
+    <h3 class="nmc-title-login">Citizen Login</h3>
+
+    <form id="citizenLoginForm">
+      <div class="mb-3">
+        <label for="username" name="username" class="form-label">Username</label>
+        <input type="tel" class="form-control" id="username" name="username"  maxlength="10"  pattern="[0-9]{10}"  placeholder="username is your mobile number" pattern="[0-9]{10}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" name="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="password">
+      </div>
+
+      <div class="form-check show-password mb-3">
+        <input type="checkbox" class="form-check-input" id="showPasswordToggle">
+        <label class="form-check-label" for="showPasswordToggle">Show Password</label>
+      </div>
+
+      <button type="submit" class="btn btn-nmc w-100">Login</button>
+    </form>
+
+    <div class="register-link">
+      Not registered yet?
+      <a href="citizen_register.html">Register now</a>
+    </div>
+  </div>
+
+
+<!-- Toast container -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+  <div id="loginToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="toastMessage">
+        Logged in successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modern Footer -->
+<footer  style="background: #33691E; color: white;">
+  <div class="container py-5">
+
+    <div class="row">
+
+      <!-- Column 1: Logo + Short Info -->
+      <div class="col-md-4 mb-4">
+        <div class="d-flex align-items-center mb-2">
+          <img src="/images/NMC_logo.png" alt="NMC Logo" width="40" class="me-2">
+          <h5 class="mb-0 ml-3 fw-bold">  Naidupeta Municipality</h5>
+        </div>
+        <p style="font-size: 15px;">
+          A citizen-friendly platform for local services such as complaints, permission requests, and health camp registrations.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Quick Links</h6>
+        <ul class="list-unstyled" style="font-size: 15px;">
+          <li><a href="/index.html" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="/About_page.html" class="text-white text-decoration-none">About us</a></li>
+          <li><a href="#main-footer" class="text-white text-decoration-none">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Contact Info</h6>
+        <p style="font-size: 15px; line-height: 1.7;">
+          Municipality Office,<br>
+          Naidupeta, SPSR Nellore, Andhra Pradesh<br>
+          Email: <a href="mailto:support@naidupeta.in" class="text-white">support@naidupeta.in</a><br>
+          Phone: +91-9876543210
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Divider Line -->
+    <hr style="border-color: rgba(255,255,255,0.2);">
+
+    <!-- Bottom Note -->
+    <div class="text-center" style="font-size: 15px;">
+      &copy; 2025 Naidupeta Municipality. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+
+
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Show Password Toggle Script -->
+  <script>
+    const toggle = document.getElementById('showPasswordToggle');
+    const passwordInput = document.getElementById('password');
+
+    toggle.addEventListener('change', function () {
+      passwordInput.type = this.checked ? 'text' : 'password';
+    });
+
+    // Optional: Validate 10-digit mobile
+    document.getElementById("citizenLoginForm").addEventListener("submit", function (e) {
+      const mobile = document.getElementById("username").value.trim();
+      if (!/^\d{10}$/.test(mobile)) {
+        e.preventDefault();
+        alert("Please enter a valid 10-digit mobile number.");
+      }
+    });
+  </script>
+  
+<!--Toast Message-->
+  <script>
+document.getElementById('citizenLoginForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  try {
+    const response = await fetch('/citizen-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+
+    const toastEl = document.getElementById('loginToast');
+    const toastBody = document.getElementById('toastMessage');
+    const toast = new bootstrap.Toast(toastEl);
+
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('citizenMobile', username);
+      toastBody.innerText = '✅ ' + data.message;
+      toastEl.classList.remove('bg-danger');
+      toastEl.classList.add('bg-white');
+      toastEl.classList.remove('text-white');
+      toastEl.classList.add('text-dark');
+      toast.show();
+
+      setTimeout(() => {
+        window.location.href = data.redirect;
+      }, 1500);
+    } else {
+      const msg = await response.text();
+      toastBody.innerText = '❌ ' + msg;
+      toastEl.classList.remove('bg-white');
+      toastEl.classList.add('bg-danger');
+      toastEl.classList.remove('text-dark');
+      toastEl.classList.add('text-white');
+      toast.show();
+    }
+
+  } catch (err) {
+    const toastEl = document.getElementById('loginToast');
+    const toastBody = document.getElementById('toastMessage');
+    toastBody.innerText = '⚠️ Server error. Please try again.';
+    toastEl.classList.remove('bg-white');
+    toastEl.classList.add('bg-danger');
+    toastEl.classList.remove('text-dark');
+    toastEl.classList.add('text-white');
+    new bootstrap.Toast(toastEl).show();
+  }
+});
+</script>
+
+</body>
+</html>

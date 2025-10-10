@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citizen Profile</title>
+  <link rel="stylesheet" href="/nmc_header_css.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f4fbe5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .profile-container {
+      max-width: 700px;
+      margin: 40px auto;
+      /* background: #fff; */
+      border-radius: 12px;
+      /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+      padding: 30px;
+      /* border-top: 5px solid rgba(3, 91, 22, 0.879); */
+      
+    }
+
+
+    h3 {
+      text-align: center;
+      font-weight: bold;
+      color: rgba(3, 91, 22, 0.879);
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      margin-bottom: 15px;
+      display: flex;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      color: #222;
+      margin-left: 20px;
+    }
+
+    .edit-field {
+      display: none;
+    }
+
+    .form-actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .toggle-password-btn {
+      cursor: pointer;
+      color: rgb(3, 75, 3);
+      font-weight: 500;
+      margin-top: 10px;
+      text-align: center;
+      
+    }
+
+    .toggle-password-btn:hover{
+        text-decoration: underline;
+    }
+
+    .save-button,.update-button{
+        color: white;
+        background-color: rgb(138, 79, 21);
+        border: none;
+    }
+    .save-button:hover{
+        background-color:rgb(176, 103, 29) ;
+        color: white;
+    }
+    .update-button:hover{
+        background-color:rgb(176, 103, 29) ;
+         color: white;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: rgba(3, 91, 22, 0.879);
+    }
+    a{
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+
+<body>
+    <!--Header-->
+    <section class="nmc-logo">
+            <div class="container-fluid nmc-header">
+              <div class="row align-items-center text-center justify-content-between">
+
+                <!-- Left Logo -->
+                <div class="col-3 col-sm-2 ml-3">
+                  <a href="/index.html"><img src="/images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+                </div>
+
+                <!-- Center Title -->
+                <div class="col-6 col-sm-8 nmc-title">
+                  <h2>Naidupeta Municipal Corporation</h2>
+                  <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+                </div>
+
+                <!-- Right Logo -->
+                <div class="col-3 col-sm-2 mr-3">
+                  <img src="/images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="Andhra Pradesh Government Logo">
+                </div>
+
+              </div>
+            </div>
+    </section>
+
+    <!--Citizen dashboard Header -->
+    <header class="py-2 border-bottom" style="background-color: #f9fbe7;">
+      <div class="container-fluid px-3">
+        <div class="d-flex align-items-center justify-content-between flex-wrap">
+
+          <!-- Left: Title -->
+          <a href="/Citizens/citizen_dashboard.html" style="text-decoration: none;"><h5 class="mb-0 fw-bold text-dark">Citizen Dashboard</h5></a>
+
+          <!-- Right: Profile Dropdown -->
+          <div class="dropdown text-end mt-2 mt-sm-0">
+            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="/images/user_logo.png" alt="User" width="38" height="38" class="rounded-circle me-2">
+              <strong id="ProfileName" class="d-none d-sm-inline">Username</strong>
+            </a>
+
+            <!-- Main Dropdown -->
+            <ul class="dropdown-menu dropdown-menu-end text-small shadow">
+              <li><a class="dropdown-item" href="/Citizens/citizen_dashboard.html">Citizen Home</a></li>
+              <li><a class="dropdown-item" href="citizen_profile_page.html">My Profile</a></li>
+
+              <!-- Services Submenu Trigger -->
+              <li class="dropdown-submenu position-relative">
+                <a class="dropdown-item dropdown-toggle dropstart" href="#">Services</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="complaint-form.html">Report Complaint</a></li>
+                  <li><a class="dropdown-item" href="event_permission_form.html">Event Permission</a></li>
+                  <li><a class="dropdown-item" href="Health_Camp_Registration.html">Health Camp</a></li>
+                </ul>
+              </li>
+
+              <li><a class="dropdown-item" href="citizen_track.html">Check Status</a></li>
+
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="" id="logoutLink">log out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="profile-container">
+    <h3>Citizen Profile</h3>
+
+    <!--Profile Details-->
+    <div id="profileView">
+        <div class="info-item">
+        <div class="info-label">Full Name    :    </div> 
+        <div class="info-value" id="viewFullName"></div>
+
+        </div>
+        <div class="info-item">
+        <div class="info-label">Mobile Number    :</div>
+        <div class="info-value" id="viewMobile"></div>
+        </div>
+        <div class="info-item">
+        <div class="info-label">Email    :</div>
+        <div class="info-value" id="viewEmail"></div>
+        </div>
+        <div class="info-item">
+        <div class="info-label">Ward    :</div>
+        <div class="info-value" id="viewWard"></div>
+        </div>
+        <div class="info-item">
+        <div class="info-label">Address    :    </div>
+        <div class="info-value" id="viewAddress"></div>
+        </div>
+        <div class="form-actions">
+        <button class="btn btn-success" onclick="enableEdit()">Edit Profile</button>
+        </div>
+    </div>
+
+    <!--Edit form-->
+    <form id="profileForm" class="edit-field">
+        <div class="mb-3">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" required />
+        </div>
+        <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required />
+        </div>
+        <div class="mb-3">
+        <label for="ward" class="form-label">Ward</label>
+        <input type="text" class="form-control" id="ward" name="ward" required />
+        </div>
+        <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea class="form-control" id="address" name="address" rows="2"></textarea>
+        </div>
+        <div class="form-actions">
+        <button type="submit" class="save-button btn">Save Changes</button>
+        </div>
+    </form>
+
+    <div class="toggle-password-btn" onclick="togglePasswordSection()">
+        Change Password?
+    </div>
+
+    <!--Change password form-->
+    <form id="changePasswordForm" class="d-none mt-4" style="border-top: 1px solid #ccc; padding-top: 20px;">
+        <div class="section-title">Change Password</div>
+        <div class="mb-3">
+        <label for="newPassword" class="form-label">New Password</label>
+        <input type="password" class="form-control" id="newPassword" name="newPassword" required />
+        </div>
+        <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="showPasswordToggle">
+            <label class="form-check-label" for="showPasswordToggle">Show Password</label>
+        </div> 
+        <div class="form-actions">
+        <button type="submit" class="update-button btn">Update Password</button>
+        </div>
+    </form>
+    </div>
+
+<script>
+function togglePasswordSection() {
+  document.getElementById('changePasswordForm').classList.toggle('d-none');
+}
+
+function enableEdit() {
+  document.getElementById('profileView').style.display = 'none';
+  document.getElementById('profileForm').style.display = 'block';
+}
+
+// Fetch user data
+window.onload = function () {
+  fetch('/get-profile')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('viewFullName').innerText = data.fullName || '';
+      document.getElementById('viewMobile').innerText = data.mobile || '';
+      document.getElementById('viewEmail').innerText = data.email || '';
+      document.getElementById('viewWard').innerText = data.ward || '';
+      document.getElementById('viewAddress').innerText = data.address || '';
+
+      document.getElementById('fullName').value = data.fullName || '';
+      document.getElementById('email').value = data.email || '';
+      document.getElementById('ward').value = data.ward || '';
+      document.getElementById('address').value = data.address || '';
+    });
+};
+
+// Update profile
+const profileForm = document.getElementById('profileForm');
+profileForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const fullName = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const ward = document.getElementById('ward').value.trim();
+  const address = document.getElementById('address').value.trim();
+
+  if (!fullName || !email || !ward) {
+    alert("Full name, email, and ward cannot be empty.");
+    return;
+  }
+
+  fetch('/update-profile', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fullName, email, ward, address })
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || 'Profile updated successfully.');
+      location.reload();
+    })
+    .catch(err => console.error(err));
+});
+
+// Update password
+const passwordForm = document.getElementById('changePasswordForm');
+passwordForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const newPassword = document.getElementById('newPassword').value.trim();
+  const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+  if (newPassword.length < 6) {
+    alert("Password should be at least 6 characters.");
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  fetch('/change-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ newPassword })
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || 'Password changed.');
+      passwordForm.reset();
+      passwordForm.classList.add('d-none');
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Failed to change password.');
+    });
+});
+</script>
+
+<!--Show Password-->
+<script>
+  const showPasswordToggle = document.getElementById("showPasswordToggle");
+  const passwordField = document.getElementById("newPassword");
+  const confirmPasswordField = document.getElementById("confirmPassword");
+
+  showPasswordToggle.addEventListener("change", () => {
+    const type = showPasswordToggle.checked ? "text" : "password";
+    passwordField.type = type;
+    confirmPasswordField.type = type;
+  });
+</script>
+
+  <!--To retrieve data -->
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+  const mobile = localStorage.getItem('citizenMobile'); // or sessionStorage
+
+
+  if (!mobile) {
+    console.warn("Mobile not found in storage");
+    return;
+  }
+
+  try {
+    const res = await fetch(`/profile/${mobile}`);
+    const data = await res.json();
+
+    if (res.ok) {
+      document.getElementById("ProfileName").innerText = data.name;
+      document.querySelector('.profile-summary').innerHTML = `
+        <div class="row">
+          <div class="col-md-4"><strong>Name:</strong> ${data.name}</div>
+          <div class="col-md-4"><strong>Ward:</strong> ${data.ward}</div>
+          <div class="col-md-4"><strong>Mobile:</strong> +91-${data.mobile}</div>
+        </div>
+      `;
+      console.log(data.name,data.ward);
+    } else {
+      document.querySelector('.profile-summary').innerText = '❌ Error loading profile';
+    }
+  } catch (err) {
+    console.error('Fetch error:', err);
+    document.querySelector('.profile-summary').innerText = '⚠️ Server error';
+  }
+});
+</script>
+
+<!--Dropdown at profile-->
+<script>
+    // Your checkAuthenticationStatus function (if it's not in a separate .js file)
+    async function checkAuthenticationStatus() {
+        try {
+            const response = await fetch('/api/check-auth-status');
+            if (!response.ok) {
+                alert('Your session has expired or is invalid. Please log in again.');
+                window.location.href = '/citizen_login.html';
+            }
+        } catch (error) {
+            console.error('Error checking authentication status:', error);
+            alert('An error occurred while verifying your session. Please try logging in again.');
+            window.location.href = '/citizen_login.html';
+        }
+    }
+
+    // Single DOMContentLoaded listener for all your page's initial JavaScript
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Authentication Check Logic ---
+        checkAuthenticationStatus(); // Call on page load
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                checkAuthenticationStatus(); // Call when tab becomes active
+            }
+        });
+
+        // --- Logout Link Logic ---
+        const logoutLink = document.getElementById('logoutLink');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (event) => {
+                event.preventDefault();
+
+                try {
+                    const response = await fetch('/logout', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        console.log('Logout successful!');
+                        window.location.href = '/citizen_login.html';
+                    } else {
+                        const errorData = await response.json();
+                        console.error('Logout failed:', errorData.message || 'Server error');
+                        alert('Logout failed: ' + (errorData.message || 'Please try again.'));
+                    }
+                } catch (error) {
+                    console.error('Network error during logout:', error);
+                    alert('An error occurred during logout. Please check your internet connection.');
+                }
+            });
+        }
+
+        // --- YOUR NEW DROPDOWN SUBMENU LOGIC GOES HERE ---
+        document.querySelectorAll(".dropdown-submenu .dropdown-toggle").forEach(function (element) {
+            element.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                let submenu = this.nextElementSibling;
+                if (submenu) {
+                    submenu.classList.toggle("show");
+                }
+
+                // Close other open submenus
+                document.querySelectorAll(".dropdown-submenu .dropdown-menu").forEach(function (el) {
+                    if (el !== submenu) el.classList.remove("show");
+                });
+            });
+        });
+
+        // Add any other DOMContentLoaded related JavaScript here
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
