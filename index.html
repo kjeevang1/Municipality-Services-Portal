@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu&display=swap" rel="stylesheet">
+  </head>
+<body>
+    <header>
+      <section class="nmc-logo">
+          <div class="container-fluid nmc-header">
+            <div class="row align-items-center text-center justify-content-between">
+
+              <!-- Left Logo -->
+              <div class="col-3 col-sm-2 text-start">
+                <a href="/index.html"><img src="./images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+              </div>
+
+              <!-- Center Title -->
+              <div class="col-6 col-sm-8 nmc-title">
+                <h2>Naidupeta Municipal Corporation</h2>
+                <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+              </div>
+
+              <!-- Right Logo -->
+              <div class="col-3 col-sm-2 text-end">
+                <img src="./images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="AP Govt Logo">
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Navigation Bar -->
+        <section class="Nav-bar">
+          
+          <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+            <div class="container-fluid">
+              <!-- Brand title on small screens -->
+              <a class="navbar-brand d-lg-none" href="#">Menu</a>
+
+              <!-- Toggler for small screens -->
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <!-- Navbar links -->
+              <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                  <li class="nav-item">
+                    <a class="nav-link active" href="./index.html">Home</a>
+                  </li>
+
+                  <!-- Dropdown -->
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Services
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                      <li><a class="dropdown-item" href="/Citizens/citizen_login.html">Give Complaint</a></li>
+                      <li><a class="dropdown-item" href="/Citizens/citizen_login.html">Request Permission</a></li>
+                      <li><a class="dropdown-item" href="/Citizens/citizen_login.html">Health Camp Registration</a></li>
+                      <!-- <li><hr class="dropdown-divider"></li> -->
+                      <!-- <li><a class="dropdown-item" href="#">More Services</a></li> -->
+                    </ul>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="/citizen_login.html">Citizen Login</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="/Admin/admin_login.html">Admin Login</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="About_page.html">About Us</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#main-footer">Contact Us</a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </section>
+    </header>
+
+
+    
+
+    <main>
+
+      <!--Hero Section and Scrolling News-->
+      <section class="container-fluid mt-3">
+        <div class="row">
+
+       <!-- Right: Hero Banner -->
+    <div class="col-lg-9 col-md-8 col-sm-12">
+      <div class="p-4 bg-white shadow-sm rounded text-center">
+        <h1 class="fw-bold" style="color: #2e7d32;">Welcome to CivicConnect+</h1>
+        <p class="lead text-secondary mb-4"> A smart digital portal to connect citizens with Naidupeta Municipality. 
+        Report issues, request services, and stay informed — all in one place.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Civic Banner"
+             class="img-fluid mt-3" style="max-height: 300px;" />
+      </div>
+    </div>
+
+        <!-- Left: Auto-Scrolling News -->
+          <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
+            <div class="p-3 bg-light shadow-sm rounded h-100">
+              <h5 class="fw-bold mb-3" style="color: #2e7d32;">Latest News</h5>
+              <div id="news-ticker" class="overflow-hidden" style="height: 250px;">
+                <ul id="scrollingNewsList"  class="list-unstyled news-list" style="animation: scrollNews 20s linear infinite;">
+                  <li class="mb-2"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+
+      <!-- Feature Cards Section -->
+      <section class="container my-5">
+        <h2 class="text-center text-success fw-bold mb-4">Our Services</h2>
+        <div class="row g-4">
+
+          <!-- Complaint Card -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/1027/1027226.png" alt="Complaint Icon"
+                    class="mb-3" style="height: 60px;">
+                <h5 class="card-title text-success fw-semibold">Register a Complaint</h5>
+                <p class="card-text text-muted">Report local issues like sanitation, drainage, lighting, and more.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Permission Request Card -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/2691/2691445.png" alt="Permission Icon"
+                    class="mb-3" style="height: 60px;">
+                <h5 class="card-title text-success fw-semibold">Request Permissions</h5>
+                <p class="card-text text-muted">Apply online for community events, rallies, or street activities – quick and easy!</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Health Camp Card -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/3353/3353922.png" alt="Health Icon"
+                    class="mb-3" style="height: 60px;">
+                <h5 class="card-title text-success fw-semibold">Join Health Camps</h5>
+                <p class="card-text text-muted">Register for upcoming health checkups and awareness camps organized in your area.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+
+
+<!-- Footer -->
+<!-- Modern Footer -->
+<footer id="main-footer" style="background: #33691E; color: white;">
+  <div class="container py-5">
+
+    <div class="row">
+
+      <!-- Column 1: Logo + Short Info -->
+      <div class="col-md-4 mb-4">
+        <div class="d-flex align-items-center mb-2">
+          <img src="./images/NMC_logo.png" alt="NMC Logo" width="40" class="me-2">
+          <h5 class="mb-0 ml-3 fw-bold">  Naidupeta Municipality</h5>
+        </div>
+        <p style="font-size: 15px;">
+          A citizen-friendly platform for local services such as complaints, permission requests, and health camp registrations.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Quick Links</h6>
+        <ul class="list-unstyled" style="font-size: 15px;">
+          <li><a href="/index.html" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="/About_page.html" class="text-white text-decoration-none">About us</a></li>
+          <li><a href="#main-footer" class="text-white text-decoration-none">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Contact Info</h6>
+        <p style="font-size: 15px; line-height: 1.7;">
+          Municipality Office,<br>
+          Naidupeta, SPSR Nellore, Andhra Pradesh<br>
+          Email: <a href="mailto:support@naidupeta.in" class="text-white">support@naidupeta.in</a><br>
+          Phone: +91-9876543210
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Divider Line -->
+    <hr style="border-color: rgba(255,255,255,0.2);">
+
+    <!-- Bottom Note -->
+    <div class="text-center" style="font-size: 15px;">
+      &copy; 2025 Naidupeta Municipality. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+   <script>
+    // Prevent click toggle on desktop (hover only)
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelectorAll('.navbar .dropdown');
+
+    dropdown.forEach(function (dd) {
+      dd.addEventListener('click', function (e) {
+        if (window.innerWidth >= 992) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      });
+    });
+  });
+   </script>
+
+    <!--Scrolling news-->
+    <script>
+        document.addEventListener('DOMContentLoaded', fetchAndDisplayScrollingNews);
+
+        async function fetchAndDisplayScrollingNews() {
+            try {
+                const response = await fetch('/api/get-active-scrolling-news');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const newsItems = await response.json();
+                
+                const newsList = document.getElementById('scrollingNewsList');
+                newsList.innerHTML = '';
+
+                if (newsItems.length === 0) {
+                    const noNewsItem = document.createElement('li');
+                    noNewsItem.className = 'mb-2';
+                    noNewsItem.textContent = 'No latest news available.';
+                    newsList.appendChild(noNewsItem);
+                    newsList.style.animation = 'none';
+                } else {
+                    newsItems.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'mb-2';
+                        listItem.textContent = item.message;
+                        newsList.appendChild(listItem);
+                    });
+
+                    if (newsItems.length < 5) { // Adjust threshold as needed
+                        for (let i = 0; i < 5 - newsItems.length; i++) { // Duplicate enough to fill up
+                            const listItem = document.createElement('li');
+                            listItem.className = 'mb-2';
+                            listItem.textContent = newsItems[i % newsItems.length].message; // Loop through existing items
+                            newsList.appendChild(listItem);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching scrolling news for homepage:', error);
+                const newsList = document.getElementById('scrollingNewsList');
+                newsList.innerHTML = '<li class="mb-2 text-danger">Failed to load news.</li>';
+            }
+        }
+    </script>
+
+    <style>
+    @keyframes scrollNews {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
+    </style>
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

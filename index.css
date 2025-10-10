@@ -1,0 +1,135 @@
+*{
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+ .nmc-header {
+      background-color: rgb(8, 98, 27);
+      padding: 10px 20px;
+      border-bottom: 1px solid #f1efef;
+    }
+
+    .nmc-logo-img {
+      height: 70px;
+      width: auto;
+    }
+
+    .nmc-title {
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .nmc-title h2 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 700;
+      color: rgb(238, 236, 236);
+      font-family: 'Segoe UI', sans-serif;
+      
+    }
+
+    .nmc-title h4 {
+      margin-top: 10px;
+      font-size: 25px;
+      color: rgb(238, 236, 236);;
+      font-weight: 400;
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    @media (max-width: 576px) {
+      .nmc-logo-img {
+        height: 50px;
+      }
+
+      .nmc-title h2 {
+        font-size: 18px;
+      }
+
+      .nmc-title h4 {
+        font-size: 14px;
+      }
+    }
+
+
+
+/**Nav bar**/
+
+/* Main navbar background and font */
+.custom-navbar {
+  background-color: rgba(3, 91, 22, 0.879); /* A calm blue shade */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Nav links styling */
+.custom-navbar .nav-link {
+  color: white !important;
+  font-weight: 600;
+  font-size: 16x;
+  padding: 10px 16px;
+  transition: all 0.3s ease;
+  /**transition: background-color 0.3s ease, color 0.3s ease; **/
+}
+
+/* Hover effect */
+.custom-navbar .nav-link:hover {
+ transform:scale(1.05);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: white !important;
+}
+
+
+
+/* Dropdown menu style */
+.dropdown-menu {
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background-color: #dddcdc !important;
+}
+/* Show dropdown on hover */
+@media (min-width: 992px) {
+  .navbar .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+/** Notification**/
+.news-list {
+  padding-left: 20px;
+}
+
+@keyframes scrollNews {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@media (max-width: 768px) {
+  #news-ticker {
+    height: 150px;
+  }
+}
+
+
+/**Footer**/
+
+

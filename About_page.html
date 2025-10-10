@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - CivicConnect Naidupeta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./nmc_header_css.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .dashboard-header {
+            background-color: #33691E; 
+            color: white; 
+            padding: 15px 0;
+            padding-left: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .about-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .about-section h2 {
+            color: #33691E; 
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .about-section p {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 15px;
+            margin-left: 20px;
+            margin-right: 20px;
+
+        }
+        .key-features-section {
+            background-color: #f2fcf2; /* Very light green */
+            padding: 50px 0;
+            text-align: center;
+        }
+        .key-features-section h3 {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 5px 20px rgba(51,105,30,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(51,105,30,0.2);
+        }
+        .feature-card i {
+            font-size: 3.5rem;
+            color: #28a745; /* Bootstrap success green */
+            margin-bottom: 20px;
+        }
+        .feature-card h4 {
+            color: #33691E;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .vision-mission-values {
+            background-color: #e6ffe6; /* Light green background */
+            padding: 40px 0;
+            text-align: center;
+        }
+        .vision-mission-values h3 {
+            color: #2e7d32; /* Slightly lighter green */
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+        .vision-mission-values .card {
+            border: none;
+            box-shadow: 0 4px 15px rgba(51,105,30,0.1);
+            border-radius: 10px;
+            height: 100%;
+            transition: transform 0.2s ease-in-out;
+        }
+        .vision-mission-values .card:hover {
+            transform: translateY(-5px);
+        }
+        .vision-mission-values .card-body {
+            padding: 30px;
+        }
+        .vision-mission-values .card-title {
+            color: #33691E;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .vision-mission-values .card-text {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+         .team-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .team-section h2 {
+            color: #33691E;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .team-member {
+            margin-bottom: 30px;
+        }
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #558B2F;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .team-member h4 {
+            color: #33691E;
+            margin-bottom: 5px;
+        }
+        .team-member p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .contact-cta {
+            background-color: #d4edda; /* Light green background */
+            padding: 40px 0;
+            text-align: center;
+            color: #155724; /* Darker green text */
+        }
+        .contact-cta h3 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .contact-cta .btn {
+            background-color: #28a745; /* Green button */
+            border-color: #28a745;
+            color: white;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+        .contact-cta .btn:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="nmc-logo">
+        <div class="container-fluid nmc-header">
+            <div class="row align-items-center text-center justify-content-between">
+                <div class="col-3 col-sm-2 ml-3">
+                    <a href="/index.html"><img src="./images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+                </div>
+                <div class="col-6 col-sm-8 nmc-title">
+                    <h2>Naidupeta Municipal Corporation</h2>
+                    <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+                </div>
+                <div class="col-3 col-sm-2 mr-3">
+                    <img src="./images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="Andhra Pradesh Government Logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="dashboard-header">About CivicConnect</div> 
+    <div class="container">
+        <section class="about-section rounded shadow-sm mb-5">
+            <div class="row py-5">
+                <div class="col-md-10 offset-md-1 ">
+                    <h2>Empowering Naidupeta Through Digital Services</h2>
+                    <p>
+                        Welcome to CivicConnect, the dedicated online portal of the Naidupeta Municipal Corporation. Built with the citizen in mind, CivicConnect is our commitment to fostering a seamless, transparent, and responsive interaction between the local government and the residents of Naidupeta.
+                    </p>
+                    <p>
+                        Our aim is to simplify and expedite various civic processes, making it easier than ever for you to voice your concerns, seek necessary permissions, and stay informed about the latest municipal activities. We believe that an empowered citizenry is the cornerstone of a progressive community.
+                    </p>
+                    <p>
+                        CivicConnect is more than just a website; it's a digital bridge designed to enhance public service delivery, promote accountability, and ensure that every citizen of Naidupeta has direct access to the municipal services they need.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="key-features-section rounded shadow-sm mb-5">
+            <div class="row">
+                <div class="col-12">
+                    <h3>What CivicConnect Offers You</h3>
+                </div>
+            </div>
+            <div class="row mt-4 justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <i class="fas fa-bullhorn"></i>
+                        <h4>Effortless Complaint Management</h4>
+                        <p class="card-text">
+                            Report civic issues, and track the status of your complaints with ease. From sanitation to public infrastructure, your voice helps us improve our city.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>Event Permission Requests</h4>
+                        <p class="card-text">
+                            Planning a public event? Apply for necessary permissions online, streamline your process, and ensure your gatherings are conducted smoothly and legally.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <i class="fas fa-stethoscope"></i>
+                        <h4>Health Camp Approvals</h4>
+                        <p class="card-text">
+                            Organizations and NGOs can apply for permissions to conduct vital health camps in the community, contributing to the well-being of Naidupeta residents.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section bg-light rounded shadow-sm mb-5">
+            <h2>Meet Our Leadership</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 col-sm-6 team-member">
+                    <img src="https://via.placeholder.com/150/d4edda/28a745?text=Officer" alt="Officer Name">
+                    <h4>[Commissioner Name]</h4>
+                    <p>Municipal Commissioner</p>
+                    <p>Leading the strategic vision and administrative operations of the corporation.</p>
+                </div>
+                <div class="col-md-4 col-sm-6 team-member">
+                    <img src="https://via.placeholder.com/150/d4edda/28a745?text=Officer" alt="Officer Name">
+                    <h4>[Deputy Commissioner Name]</h4>
+                    <p>Deputy Municipal Commissioner</p>
+                    <p>Overseeing daily operations and ensuring effective service delivery.</p>
+                </div>
+                </div>
+        </section>
+
+        <!-- <section class="contact-cta rounded shadow-sm mb-5">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Need Assistance or Have Suggestions?</h3>
+                    <p class="lead">Your feedback is invaluable. We're here to help you navigate CivicConnect and our services.</p>
+                    <a href="/contact.html" class="btn">Get in Touch</a>
+                </div>
+            </div>
+        </section> -->
+
+    </div>
+
+    <!-- Modern Footer -->
+    <footer id="main-footer" style="background: #33691E; color: white;">
+    <div class="container py-5">
+
+        <div class="row">
+
+        <!-- Column 1: Logo + Short Info -->
+        <div class="col-md-4 mb-4">
+            <div class="d-flex align-items-center mb-2">
+            <img src="./images/NMC_logo.png" alt="NMC Logo" width="40" class="me-2">
+            <h5 class="mb-0 ml-3 fw-bold">  Naidupeta Municipality</h5>
+            </div>
+            <p style="font-size: 15px;">
+            A citizen-friendly platform for local services such as complaints, permission requests, and health camp registrations.
+            </p>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="col-md-4 mb-4">
+            <h6 class="fw-bold mb-3">Quick Links</h6>
+            <ul class="list-unstyled" style="font-size: 15px;">
+            <li><a href="/index.html" class="text-white text-decoration-none">Home</a></li>
+            <li><a href="/About_page.html" class="text-white text-decoration-none">About us</a></li>
+            <li><a href="#main-footer" class="text-white text-decoration-none">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3: Contact Info -->
+        <div class="col-md-4 mb-4">
+            <h6 class="fw-bold mb-3">Contact Info</h6>
+            <p style="font-size: 15px; line-height: 1.7;">
+            Municipality Office,<br>
+            Naidupeta, SPSR Nellore, Andhra Pradesh<br>
+            Email: <a href="mailto:support@naidupeta.in" class="text-white">support@naidupeta.in</a><br>
+            Phone: +91-9876543210
+            </p>
+        </div>
+
+        </div>
+
+        <!-- Divider Line -->
+        <hr style="border-color: rgba(255,255,255,0.2);">
+
+        <!-- Bottom Note -->
+        <div class="text-center" style="font-size: 15px;">
+        &copy; 2025 Naidupeta Municipality. All rights reserved.
+        </div>
+
+    </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+*{
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+ .nmc-header {
+      background-color: rgb(8, 98, 27);
+      padding: 10px 20px;
+      border-bottom: 1px solid #f1efef;
+    }
+
+    .nmc-logo-img {
+      height: 70px;
+      width: auto;
+    }
+
+    .nmc-title {
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .nmc-title h2 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 700;
+      color: rgb(238, 236, 236);
+      font-family: 'Segoe UI', sans-serif;
+      
+    }
+
+    .nmc-title h4 {
+      margin-top: 10px;
+      font-size: 22px;
+      color: rgb(238, 236, 236);;
+      font-weight: 400;
+      font-style: bold;
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+
+    @media (max-width: 576px) {
+      .nmc-logo-img {
+        height: 50px;
+      }
+
+      .nmc-title h2 {
+        font-size: 18px;
+      }
+
+      .nmc-title h4 {
+        font-size: 14px;
+      }
+    }
+
