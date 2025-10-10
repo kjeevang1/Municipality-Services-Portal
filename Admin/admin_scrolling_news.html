@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Add Scrolling News</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/nmc_header_css.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f4fbe5;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .dashboard-header {
+            background-color: #33691E;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            display: flex;
+        }
+        .container {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(51,105,30,0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            color:green;
+            font-weight: bold;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            padding: 15px 20px;
+        }
+        .form-label {
+            color: #558B2F;
+            font-weight: 500;
+        }
+        .form-control, .form-select { /* Keep .form-select style even if not used directly for consistency */
+            border-radius: 7px;
+            border: 1.2px solid #558B2F;
+            color: #333;
+        }
+        .btn-primary-custom {
+            background-color: #558B2F;
+            border-color: #558B2F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 7px;
+            font-weight: 500;
+        }
+        .btn-primary-custom:hover {
+            background-color: #33691E;
+            border-color: #33691E;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+        .news-table {
+            background-color: #fff;
+            border-radius: 12px;
+        }
+        .news-table thead {
+            background-color: #558B2F;
+            color: white;
+        }
+        .news-table th, .news-table td {
+            padding: 12px 10px;
+            vertical-align: middle;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .news-table tbody tr:nth-child(even) {
+            background-color: #f9fff2;
+        }
+        .news-table tbody tr:hover {
+            background-color: #e4efdc;
+            transition: background-color 0.2s;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+            padding: 5px 8px;
+            font-size: 0.8rem;
+            border-radius: 5px;
+        }
+        .no-data-message {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 1.1rem;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(51,105,30,0.05);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section class="nmc-logo">
+        <div class="container-fluid nmc-header">
+            <div class="row align-items-center text-center justify-content-between">
+                <div class="col-3 col-sm-2 ml-3">
+                    <a href="/index.html"><img src="/images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+                </div>
+                <div class="col-6 col-sm-8 nmc-title">
+                    <h2>Naidupeta Municipal Corporation</h2>
+                    <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+                </div>
+                <div class="col-3 col-sm-2 mr-3">
+                    <img src="/images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="Andhra Pradesh Government Logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="dashboard-header">Manage Scrolling News</div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header" id="formHeader">Add New News Item</div>
+            <div class="card-body">
+                <form id="newsItemForm">
+                    <input type="hidden" id="newsItemId">
+                    <div class="mb-3">
+                        <textarea class="form-control" id="message" rows="2" required placeholder="Enter the scrolling news message "></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom" id="submitButton">Add News Item</button>
+                    <button type="button" class="btn btn-secondary" id="cancelEdit" style="display:none; margin-left: 10px;">Cancel Edit</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Existing Scrolling News Items</div>
+            <div class="card-body">
+                <div class="table-responsive news-table">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Message</th>
+                                <th>Created On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsItemTableBody">
+                            </tbody>
+                    </table>
+                </div>
+                <div id="noDataMessage" class="no-data-message" style="display: none;">
+                    No scrolling news items found.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let editingNewsItemId = null;
+
+        function formatDateForDisplay(dateStr) {
+            if (!dateStr) return 'N/A';
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); // e.g., 25 Jul 2025
+        }
+
+        // --- Fetch and Render News Items ---
+        async function fetchNewsItems() {
+            try {
+                const response = await fetch('/admin/get-scrolling-news'); 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const newsItems = await response.json();
+                renderNewsItems(newsItems);
+            } catch (error) {
+                console.error('Error fetching scrolling news:', error);
+                document.getElementById('noDataMessage').innerText = 'Failed to load news items. Please try again later.';
+                document.getElementById('noDataMessage').style.display = 'block';
+            }
+        }
+
+        function renderNewsItems(newsItems) {
+            const tableBody = document.getElementById('newsItemTableBody');
+            const noDataMessage = document.getElementById('noDataMessage');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            if (newsItems.length === 0) {
+                noDataMessage.style.display = 'block';
+            } else {
+                noDataMessage.style.display = 'none';
+                newsItems.forEach(item => {
+                    const row = tableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.message}</td>
+                        <td>${formatDateForDisplay(item.createdAt)}</td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-info edit-btn" data-id="${item._id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-danger delete-btn" data-id="${item._id}"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </td>
+                    `;
+                });
+
+                // Attach event listeners to newly created buttons
+                document.querySelectorAll('.edit-btn').forEach(button => {
+                    button.addEventListener('click', (event) => editNewsItem(event.target.dataset.id));
+                });
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', (event) => deleteNewsItem(event.target.dataset.id));
+                });
+            }
+        }
+
+        // --- Form Submission (Add/Update) ---
+        document.getElementById('newsItemForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const message = document.getElementById('message').value.trim();
+            // Removed status field from data
+
+            const newsItemData = { message };
+
+            let url = '/admin/add-scrolling-news-item';
+            let method = 'POST';
+
+            if (editingNewsItemId) {
+                url = `/admin/update-scrolling-news-item/${editingNewsItemId}`;
+                method = 'PATCH';
+            }
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newsItemData),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                }
+
+                alert(editingNewsItemId ? 'News item updated successfully!' : 'News item added successfully!');
+                resetForm();
+                fetchNewsItems(); // Reload list
+            } catch (error) {
+                console.error('Operation failed:', error);
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // --- Edit News Item ---
+        async function editNewsItem(id) {
+            try {
+                const response = await fetch(`/admin/get-scrolling-news-item/${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const item = await response.json();
+
+                document.getElementById('newsItemId').value = item._id; // Hidden field
+                document.getElementById('message').value = item.message;
+                // Removed status, date, order fields from edit population
+
+                editingNewsItemId = item._id;
+                document.getElementById('formHeader').innerText = 'Edit News Item';
+                document.getElementById('submitButton').innerText = 'Update News Item';
+                document.getElementById('cancelEdit').style.display = 'inline-block';
+
+            } catch (error) {
+                console.error('Error fetching news item for edit:', error);
+                alert('Failed to load news item for editing.');
+            }
+        }
+
+        // --- Delete News Item ---
+        async function deleteNewsItem(id) {
+            if (!confirm('Are you sure you want to delete this news item?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/admin/delete-scrolling-news-item/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                }
+
+                alert('News item deleted successfully!');
+                fetchNewsItems(); // Reload list
+            } catch (error) {
+                console.error('Error deleting news item:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // --- Reset Form ---
+        function resetForm() {
+            document.getElementById('newsItemForm').reset();
+            document.getElementById('newsItemId').value = '';
+            editingNewsItemId = null;
+            document.getElementById('formHeader').innerText = 'Add New News Item';
+            document.getElementById('submitButton').innerText = 'Add News Item';
+            document.getElementById('cancelEdit').style.display = 'none';
+        }
+
+        document.getElementById('cancelEdit').addEventListener('click', resetForm);
+
+        // Initial load of news items when the page loads
+        document.addEventListener('DOMContentLoaded', fetchNewsItems);
+    </script>
+
+    <!--IsAdmin Authenticated -->
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('/api/check-admin-auth-status')
+    .then(res => {
+      if (!res.ok) throw new Error('Not authenticated');
+      return res.json();
+    })
+    .then(data => {
+      console.log('Admin authenticated:', data.username);
+    })
+    .catch(err => {
+      console.warn('Redirecting to admin login...');
+      alert('Invalid login or session Expired. Please log in again.'); 
+      window.location.href = '/Admin/admin_login.html';
+    });
+});
+    </script>
+
+</body>
+</html>

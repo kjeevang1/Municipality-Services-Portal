@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Citizen Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/nmc_header_css.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4fbe5;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .dashboard-header {
+            background-color: #33691E;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            display: flex;
+        }
+        .container {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .citizen-table {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+            box-shadow: 0 4px 15px rgba(51,105,30,0.1);
+        }
+        .citizen-table thead {
+            background-color: #558B2F;
+            color: white;
+        }
+        .citizen-table th {
+            padding: 15px 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .citizen-table td {
+            padding: 12px 10px;
+            vertical-align: middle;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .citizen-table tbody tr:nth-child(even) {
+            background-color: #f9fff2;
+        }
+        .citizen-table tbody tr:hover {
+            background-color: #e4efdc;
+            transition: background-color 0.2s;
+        }
+        .form-control {
+            border-radius: 7px;
+            border: 1.2px solid #558B2F;
+            color: #333;
+        }
+        .form-label {
+            color: #558B2F;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+        .no-data-message {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 1.1rem;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(51,105,30,0.05);
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .citizen-table th, .citizen-table td {
+                padding: 8px 5px;
+                font-size: 0.85rem;
+            }
+        }
+    .btn-custom-green {
+    background: rgba(3,91,22,0.879);
+    border: none; 
+    color: #fff; 
+    padding: 8px 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(3,91,22,0.11);
+    transition: background 0.3s, box-shadow 0.2s;
+}
+
+.btn-custom-green:hover,
+.btn-custom-green:focus {
+    background: rgba(5, 138, 34, 0.879);
+    box-shadow: 0 4px 12px rgba(3,91,22,0.17);
+    color: white;
+}
+    </style>
+</head>
+<body>
+    <section class="nmc-logo">
+        <div class="container-fluid nmc-header">
+            <div class="row align-items-center text-center justify-content-between">
+                <div class="col-3 col-sm-2 ml-3">
+                    <a href="/index.html"><img src="/images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+                </div>
+                <div class="col-6 col-sm-8 nmc-title">
+                    <h2>Naidupeta Municipal Corporation</h2>
+                    <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+                </div>
+                <div class="col-3 col-sm-2 mr-3">
+                    <img src="/images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="Andhra Pradesh Government Logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="dashboard-header">Citizen Management</div>
+
+    <div class="container">
+               <div class="filter-section">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="citizenSearch" class="form-label">Search by Name, Mobile, or Email</label>
+                    <input type="text" class="form-control" id="citizenSearch" placeholder="Search citizens...">
+                </div>
+                <div class="col-md-2">
+                    <label for="wardFilter" class="form-label">Ward</label>
+                    <input type="text" class="form-control" id="wardFilter" placeholder="Enter Ward No.">
+                </div>
+                <div class="col-md-3">
+                    <label for="fromDateFilter" class="form-label">From Date (Registered On)</label>
+                    <input type="date" class="form-control" id="fromDateFilter">
+                </div>
+                <div class="col-md-3">
+                    <label for="toDateFilter" class="form-label">To Date (Registered On)</label>
+                    <input type="date" class="form-control" id="toDateFilter">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-end">
+                    <button type="button" class="btn btn-custom-green" onclick="applyFilters()">Apply Filters</button>
+                    <button type="button" class="btn btn-secondary ms-2" onclick="clearFilters()">Clear Filters</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="table-responsive citizen-table">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Ward</th> 
+                        <th>Registered On</th>
+                    </tr>
+                </thead>
+                <tbody id="citizenTableBody">
+                    </tbody>
+            </table>
+        </div>
+        <div id="noDataMessage" class="no-data-message" style="display: none;">
+            No citizens found matching your search.
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let currentCitizens = []; 
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('en-GB'); 
+        }
+
+        function loadCitizens() {
+            const searchTerm = document.getElementById('citizenSearch').value;
+            const wardFilter = document.getElementById('wardFilter').value;
+            const fromDateFilter = document.getElementById('fromDateFilter').value; // YYYY-MM-DD format
+            const toDateFilter = document.getElementById('toDateFilter').value;     // YYYY-MM-DD format
+            
+                        const params = new URLSearchParams();
+            if (searchTerm) {
+                params.append('search', searchTerm);
+            }
+            if (wardFilter) {
+                params.append('ward', wardFilter);
+            }
+            if (fromDateFilter) {
+                params.append('fromDate', fromDateFilter);
+            }
+            if (toDateFilter) {
+                params.append('toDate', toDateFilter);
+            }
+
+            const queryParams = params.toString() ? `?${params.toString()}` : '';
+            fetch(`/admin/get-citizens${queryParams}`) 
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    currentCitizens = data; 
+                    renderCitizens(currentCitizens); 
+                })
+                .catch(err => {
+                    console.error('Error loading citizens:', err);
+                    document.getElementById('noDataMessage').innerText = 'Failed to load citizen data. Please try again later.';
+                    document.getElementById('noDataMessage').style.display = 'block';
+                });
+        }
+
+        function renderCitizens(citizensToRender) {
+            const tableBody = document.getElementById('citizenTableBody');
+            const noDataMessage = document.getElementById('noDataMessage');
+            tableBody.innerHTML = ''; 
+            if (citizensToRender.length === 0) {
+                noDataMessage.style.display = 'block';
+                noDataMessage.innerText = 'No citizen data matches your current filters.';
+            } else {
+                noDataMessage.style.display = 'none';
+                citizensToRender.forEach(citizen => {
+                    const row = tableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${citizen.fullName || 'N/A'}</td>
+                        <td>${citizen.mobile || 'N/A'}</td>
+                        <td>${citizen.email || 'N/A'}</td>
+                        <td>${citizen.address || 'N/A'}</td>
+                        <td>${citizen.ward || 'N/A'}</td>
+                        <td>${formatDate(citizen.registeredAt)}</td>
+                    `;
+                });
+            }
+        }
+
+        function applyFilters() {
+            loadCitizens(); 
+        }
+
+        function clearFilters() {
+            document.getElementById('citizenSearch').value = '';
+            document.getElementById('wardFilter').value = '';
+            document.getElementById('fromDateFilter').value = '';
+            document.getElementById('toDateFilter').value = '';
+            loadCitizens(); // Reload data with all filters cleared
+        }
+
+        document.getElementById('citizenSearch').addEventListener('keyup',(event)=>{
+            loadCitizens();
+        });
+
+        document.getElementById('wardFilter').addEventListener('change', loadCitizens);
+        document.getElementById('fromDateFilter').addEventListener('change', loadCitizens);
+        document.getElementById('toDateFilter').addEventListener('change', loadCitizens);
+
+
+        document.addEventListener('DOMContentLoaded', loadCitizens);
+    </script>
+
+    <!--IsAdmin Authenticated -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/check-admin-auth-status')
+            .then(res => {
+            if (!res.ok) throw new Error('Not authenticated');
+            return res.json();
+            })
+            .then(data => {
+            console.log('Admin authenticated:', data.username);
+            })
+            .catch(err => {
+            console.warn('Redirecting to admin login...');
+            alert('Invalid login or session Expired. Please log in again.'); 
+            window.location.href = '/Admin/admin_login.html';
+            });
+        });
+    </script>
+
+</body>
+</html>

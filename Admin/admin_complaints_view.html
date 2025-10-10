@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complaints Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/nmc_header_css.css">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4fbe5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .dashboard-header {
+      background-color: #33691E;
+      color: white;
+      padding: 15px 20px;
+
+padding-left:20px ;      
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-bottom: 0;
+    }
+    /* New simple stats bar */
+    .stats-bar {
+      background: #e4efdc;
+      border-radius: 10px;
+      padding: 10px 18px;
+      margin: 24px 0 18px 0;
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.06rem;
+      color: #33691E;
+      font-weight: 500;
+      box-shadow: 0 0 6px 0 rgba(60,60,60,.08);
+    }
+    .stats-bar span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stats-bar .badge {
+      background: #558B2F;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 7px;
+      padding: 4px 11px;
+      font-weight: 600;
+    }
+    .nav-tabs {
+      border-bottom: 2px solid #558B2F;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #f4fbe5;
+      border-color: #33691E #33691E #f4fbe5;
+      color: #33691E;
+      font-weight: bold;
+      border-bottom: 4px solid #33691E;
+    }
+    .nav-tabs .nav-link {
+      color: #33691E;
+      font-weight: 500;
+      border-radius: 0;
+      border: 0;
+      margin-right: 16px;
+      font-size: 1.1rem;
+    }
+    .complaint-card {
+      background: #fff;
+      border: none;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 10px rgba(51,105,30,0.08);
+      transition: box-shadow 0.17s;
+      cursor: pointer;
+      position: relative;
+    }
+    .complaint-card:hover {
+      box-shadow: 0 6px 24px 0 rgba(51,105,30,0.14);
+    }
+    .complaint-header {
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .complaint-title {
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #33691E;
+      margin-bottom: 4px;
+    }
+    .complaint-meta {
+      font-size: 0.97rem;
+      color: #558B2F;
+      opacity: 0.88;
+    }
+    .complaint-toggle-btn {
+      background: #e4efdc;
+      border: none;
+      color: #33691E;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      padding: 2px 12px;
+      cursor: pointer;
+      margin-left: 14px;
+      transition: background 0.14s;
+      display: none;
+    }
+    .complaint-details {
+      border-top: 1px solid #e4efdc;
+      background: #f9fff2;
+      padding: 20px 26px;
+      font-size: 1.05rem;
+      color: #33691E;
+      display: none;
+      animation: fadeIn .4s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    .complaint-details strong {
+      color: #558B2F;
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    .status-update-form {
+      margin-top: 18px;
+      padding: 12px 0 0 0;
+      border-top: 1px dashed #cde6be;
+    }
+    .btn-theme {
+      background: #33691E;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      padding: 8px 22px;
+      transition: background 0.13s;
+    }
+    .btn-theme:hover {
+      background: #558B2F;
+      color: #fff;
+    }
+    .form-control, .form-select {
+      border-radius: 7px;
+      border: 1.2px solid #558B2F;
+    }
+    .form-label {
+      color: #558B2F;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    @media (max-width: 768px) {
+      .stats-bar { flex-direction: column; gap: 0.8rem; font-size: 1rem;}
+      .complaint-header, .complaint-details { padding: 12px 9px; }
+      .nav-tabs .nav-link { font-size: 1rem; margin-right: 8px;}
+    }
+  </style>
+
+  <!--Status bar: Count of complaints-->
+  <style>
+    .stats-bar {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      gap: 36px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 7px 10px 3px 10px;
+      margin: 18px 0 28px 0;
+      font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+      min-height: 48px;
+    }
+
+    .stats-bar span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #2e7d32;
+      letter-spacing: 0.5px;
+      padding: 0 8px;
+      position: relative;
+    }
+
+    .stats-bar .badge {
+      margin-top: 2px;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2e7d32;
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+      min-width: unset;
+      min-height: unset;
+      display: inline;
+      align-items: unset;
+      justify-content: unset;
+      transition: none;
+      border: none;
+      outline: none;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      .stats-bar {
+        flex-direction: column;
+        gap: 7px;
+        padding: 7px 2px 3px 2px;
+        min-height: 32px;
+      }
+      .stats-bar span {
+        font-size: 0.97rem;
+        padding: 0 2px;
+      }
+      .stats-bar .badge {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+    <!--Header-->
+    <section class="nmc-logo">
+            <div class="container-fluid nmc-header">
+              <div class="row align-items-center text-center justify-content-between">
+
+                <!-- Left Logo -->
+                <div class="col-3 col-sm-2 ml-3">
+                  <a href="/index.html"><img src="/images/NMC_logo.png" class="nmc-logo-img" alt="NMC Logo"></a>
+                </div>
+
+                <!-- Center Title -->
+                <div class="col-6 col-sm-8 nmc-title">
+                  <h2>Naidupeta Municipal Corporation</h2>
+                  <h4>నాయుడుపేట నగర పాలక సంస్థ</h4>
+                </div>
+
+                <!-- Right Logo -->
+                <div class="col-3 col-sm-2 mr-3">
+                  <img src="/images/AP_govt_logo.jpeg" class="nmc-logo-img" alt="Andhra Pradesh Government Logo">
+                </div>
+
+              </div>
+            </div>
+    </section>
+
+
+  <div class="dashboard-header">Complaints Management</div>
+  <div class="container">
+    <!-- Complaint Statistics (Simple bar) -->
+    <div class="stats-bar" id="statsBar">
+      <span>Total <span class="badge" id="totalCount">0</span></span>
+      <span>Pending <span class="badge" id="pendingCount">0</span></span>
+      <span>On Progress <span class="badge" id="progressCount">0</span></span>
+      <span>Completed <span class="badge" id="completedCount">0</span></span>
+    </div>
+
+
+        <!-- Filter Section -->
+    <div class="filter-section row g-2 mb-3">
+      <div class="col-md-3">
+        <label class="form-label">Ward</label>
+        <select class="form-select" id="filterWard">
+          <option value="">All</option>
+             <script>
+                const select = document.getElementById('filterWard');
+                for (let i = 1; i <= 10; i++) {
+                  const option = document.createElement('option');
+                  option.value = `Ward ${i}`;
+                  option.textContent = `Ward ${i}`;
+                  select.appendChild(option);
+                }
+              </script>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">From Date</label>
+        <input type="date" class="form-control" id="filterFromDate">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">To Date</label>
+        <input type="date" class="form-control" id="filterToDate">
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <button class="btn btn-theme w-100" onclick="applyFilters()">Apply Filters</button>
+      </div>
+    </div>
+
+    
+    <!-- Complaints Tabs -->
+    <ul class="nav nav-tabs" id="complaintTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button"
+          role="tab">Pending</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="progress-tab" data-bs-toggle="tab" data-bs-target="#progress" type="button"
+          role="tab">On Progress</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button"
+          role="tab">Completed</button>
+      </li>
+    </ul>
+    <div class="tab-content pt-2" id="complaintTabsContent">
+      <!-- Pending Complaints -->
+      <div class="tab-pane fade show active" id="pending" role="tabpanel">
+        <div id="pendingList"></div>
+      </div>
+      <!-- On Progress Complaints -->
+      <div class="tab-pane fade" id="progress" role="tabpanel">
+        <div id="progressList"></div>
+      </div>
+      <!-- Completed Complaints -->
+      <div class="tab-pane fade" id="completed" role="tabpanel">
+        <div id="completedList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- FontAwesome for arrow -->
+  <script src="https://kit.fontawesome.com/ea48b5ee4b.js" crossorigin="anonymous"></script>
+
+
+
+
+<script>
+  let allComplaints = []; 
+  let complaints = [];   
+
+  // Format date helper
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString() + " " + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+
+
+  // Load complaints from backend with optional filters
+  function loadComplaints() {
+    const fromDate = document.getElementById('filterFromDate').value;
+    const toDate = document.getElementById('filterToDate').value;
+    const ward = document.getElementById('filterWard').value;
+
+    const params = new URLSearchParams();
+    if (fromDate) params.append('from', fromDate);
+    if (toDate) params.append('to', toDate);
+    if (ward) params.append('ward', ward);
+
+    fetch(`/admin/get-complaints?${params.toString()}`)
+      .then(res => res.json())
+      .then(data => {
+        complaints = data;
+        allComplaints = data;
+        renderStats();
+        renderComplaints();
+      })
+      .catch(err => {
+        console.error('Error loading complaints:', err);
+      });
+  }
+
+
+
+  // Apply filters button
+  function applyFilters() {
+    const fromDate = document.getElementById('filterFromDate').value;
+    const toDate = document.getElementById('filterToDate').value;
+    const ward = document.getElementById('filterWard').value;
+
+    complaints = allComplaints.filter(c => {
+      const date = new Date(c.submittedAt);
+      let valid = true;
+      if (fromDate) valid = valid && (date >= new Date(fromDate));
+      if (toDate) {
+        const to = new Date(toDate);
+        to.setDate(to.getDate() + 1);
+        valid = valid && (date <= to);
+      }
+      if (ward) valid = valid && (c.ward === ward);
+      return valid;
+    });
+
+    renderStats();
+    renderComplaints();
+  }
+
+
+
+  // Render complaint statistics
+  function renderStats() {
+    document.getElementById('totalCount').innerText = allComplaints.length;
+    document.getElementById('pendingCount').innerText = allComplaints.filter(c => c.status === "Pending").length;
+    document.getElementById('progressCount').innerText = allComplaints.filter(c => c.status === "On Progress").length;
+    document.getElementById('completedCount').innerText = allComplaints.filter(c => c.status === "Completed").length;
+  }
+
+
+
+  // Render complaint lists by status
+  function renderComplaints() {
+    const pending = complaints.filter(c => c.status === "Pending");
+    const progress = complaints.filter(c => c.status === "On Progress");
+    const completed = complaints.filter(c => c.status === "Completed");
+    renderList('pendingList', pending);
+    renderList('progressList', progress);
+    renderList('completedList', completed);
+  }
+
+
+
+  // Render each complaint list
+  function renderList(containerId, data) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    if (data.length === 0) {
+      container.innerHTML = `<div class="text-center py-4 text-muted">No complaints found.</div>`;
+      return;
+    }
+    data.forEach((complaint, idx) => {
+      const card = document.createElement('div');
+      card.className = "complaint-card";
+      card.innerHTML = `
+        <div class="complaint-header" data-idx="${idx}">
+          <div>
+            <div class="complaint-title">${complaint.subject}</div>
+            <div class="complaint-meta">
+              <span>Submitted: ${formatDate(complaint.submittedAt)}</span> |
+              <span>Complaint ID: ${complaint.ComplaintId}</span>
+            </div>
+          </div>
+        </div>
+        <div class="complaint-details">
+          <div><strong>Category : </strong> ${complaint.category}</div>
+          <div><strong>Subject : </strong> ${complaint.subject}</div>
+          <div><strong>Description :</strong> ${complaint.description}</div>
+          <div><strong>Location : </strong> ${complaint.location}</div>
+          <div><strong>Ward : </strong> ${complaint.ward}</div>
+          <div><strong>Mobile : </strong> ${complaint.username}</div>
+          <div><strong>Email : </strong> ${complaint.email || "Not Available"}</div>
+          ${complaint.imagePath ? `<div><strong>Image:</strong> <img src="${complaint.imagePath}" alt="Complaint Image" style="max-width:120px;border-radius:5px;" /></div>` : ""}
+          <div><strong>Submitted At:</strong> ${formatDate(complaint.submittedAt)}</div>
+          <div><strong>Status Description:</strong> ${complaint.status_description || "N/A"}</div>
+          ${renderStatusForm(complaint)}
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // Toggle complaint details
+    container.querySelectorAll('.complaint-header').forEach(header => {
+      header.addEventListener('click', function () {
+        const detailsDiv = this.closest('.complaint-card').querySelector('.complaint-details');
+        detailsDiv.style.display = (detailsDiv.style.display === "block") ? "none" : "block";
+      });
+    });
+
+    // Handle status update
+    document.querySelectorAll('.status-update-form').forEach(form => {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const complaintId = this.dataset.id;  // Get from data-id
+        const complaint = complaints.find(c => c.ComplaintId === complaintId);
+
+        if (!complaint) {
+          console.error('Complaint not found for update.');
+          return;
+        }
+
+        let newStatus, description = "";
+
+        if (complaint.status === "Pending") {
+          newStatus = "On Progress";
+          description = "Marked as On Progress by admin.";
+        } else if (complaint.status === "On Progress") {
+          newStatus = "Completed";
+          description = this.querySelector('[name="status_description"]').value;
+        }
+
+        fetch(`/admin/update-complaint-status/${complaintId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus, description })
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message || 'Status updated');
+          loadComplaints();
+        })
+        .catch(err => {
+          console.error('Status Update Error:', err);
+          alert('Failed to update status.');
+        });
+      });
+    });
+
+  }
+
+
+
+  // Render form based on complaint status
+  function renderStatusForm(complaint) {
+    const complaintId = complaint.ComplaintId;  // Use unique ID for reference
+    if (complaint.status === "Pending") {
+      return `
+        <form class="status-update-form" data-id="${complaintId}">
+          <button type="submit" class="btn btn-theme mt-2">Mark as On Progress</button>
+        </form>`;
+    }
+    if (complaint.status === "On Progress") {
+      return `
+        <form class="status-update-form" data-id="${complaintId}">
+          <div class="mb-2">
+            <label class="form-label" for="desc_${complaintId}">Status Description</label>
+            <input type="text" class="form-control" name="status_description" id="desc_${complaintId}" required placeholder="Description for completion" />
+          </div>
+          <button type="submit" class="btn btn-theme">Mark as Completed</button>
+        </form>`;
+    }
+    return '';
+  }
+
+
+
+  // Initial fetch on page load
+  document.addEventListener('DOMContentLoaded', loadComplaints);
+</script>
+
+    <!--IsAdmin Authenticated -->
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('/api/check-admin-auth-status')
+    .then(res => {
+      if (!res.ok) throw new Error('Not authenticated');
+      return res.json();
+    })
+    .then(data => {
+      console.log('Admin authenticated:', data.username);
+    })
+    .catch(err => {
+      console.warn('Redirecting to admin login...');
+      alert('Invalid login or session Expired. Please log in again.'); 
+      window.location.href = '/Admin/admin_login.html';
+    });
+});
+    </script>
+
+</body>
+</html>
