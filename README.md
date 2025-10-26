@@ -96,7 +96,7 @@ Admin login uses a secure hashed password instead of storing it in plain text.
 
   ```javascript
   const bcrypt = require('bcrypt');
-  const password = 'admin123';
+  const password = 'your_admin_password';
   const hash = await bcrypt.hash(password, 10);
   console.log(hash); // Store this hash as ADMIN_PASS_HASH in .env
   ```
